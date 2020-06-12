@@ -1,0 +1,340 @@
+{
+	"info": {
+		"_postman_id": "51c56a15-280a-4c5d-b97a-d2d0e6d0a5f3",
+		"name": "udacity-capstone",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "GET anime",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/animes",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"animes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET anime_by_id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/animes/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"animes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST anime",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"title_test_2\",\n    \"image_url\": \"image_url_test_2\",\n    \"mal_url\": \"mal_url_test_2\",\n    \"score\": 10,\n    \"rank\": 666\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/animes",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"animes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PATCH anime",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"after_patch_1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/animes/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"animes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE anime",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/animes/3",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"animes",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{user_token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "85132139-8d36-4073-b9f3-7be2bbf3738b",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "d1cc00ef-17fb-4c51-9105-78fd0b807107",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "admin",
+			"item": [
+				{
+					"name": "GET anime",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/animes",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"animes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET anime_by_id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/animes/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"animes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST anime",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"title_test_2\",\n    \"image_url\": \"image_url_test_2\",\n    \"mal_url\": \"mal_url_test_2\",\n    \"score\": 10,\n    \"rank\": 666\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/animes",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"animes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PATCH anime",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"after_patch_1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/animes/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"animes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE anime",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/animes/3",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"animes",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{admin_token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "171613d7-c53f-4a48-a941-bbdb6da98643",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "45447ad6-cdef-4bc8-98ca-0d1f8ab09d20",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "68bea7d2-a9ac-4d84-9198-1e59d9f42556",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "8c2d8870-ec80-4a65-8c0d-ac8d4513e7f2",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "e7023b01-dcb2-47b8-9b28-4a97e683a5cd",
+			"key": "user_token",
+			"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlVITHZkRWsyeXJ0TWZsZzdpN1pTWCJ9.eyJpc3MiOiJodHRwczovL2Rldi1iNGZsMzU5MS51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWVlMzBmNDYwNWM1N2MwYmEyZGFmMjAyIiwiYXVkIjoiYW5pbWUiLCJpYXQiOjE1OTE5Mzk2MTMsImV4cCI6MTU5MTk0NjgxMywiYXpwIjoieHdlUVd6TkVRakVRV3pSVEFLQWh5NWZjNVE1bzFlU3giLCJzY29wZSI6IiIsInBlcm1pc3Npb25zIjpbImdldDphbmltZXMiXX0.etRRI2YFN5lCQ45cS30PMnZQcBxFuVZ8WskKp0l7myWeW-y7lklaStB9piElS84SYd1gCXWs-qzS0eMSzdmd4PoGPmjTDfAu8IcPqwsuoWd_C60M2h2jJCI_Eb6Y2wtmQa6hYV2tHy7ViVjpF6HU25BTq2yR2zyBLlpDpI9nkYrpN4kddDVlb8IaXCf46bEpNaSGGUDbE8pCOIFXpGgXv989GATrrAK6sc1M8tk5yuqgs6A4QE24z3tpm31haBTDf6p0H8LPSN7YeUbbvj8AaoAKCpkECzdrl48fneYZVFXs6bRXlaYnpg4g1a2FPjTdMdhQ3qUE-RS7gL4ZekcA4Q",
+			"type": "string"
+		},
+		{
+			"id": "780d9813-654e-4ed3-a6c1-13945217e719",
+			"key": "admin_token",
+			"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlVITHZkRWsyeXJ0TWZsZzdpN1pTWCJ9.eyJpc3MiOiJodHRwczovL2Rldi1iNGZsMzU5MS51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWVlMzBmNjcwNWM1N2MwYmEyZGFmMjA0IiwiYXVkIjoiYW5pbWUiLCJpYXQiOjE1OTE5Mzk0NjksImV4cCI6MTU5MTk0NjY2OSwiYXpwIjoieHdlUVd6TkVRakVRV3pSVEFLQWh5NWZjNVE1bzFlU3giLCJzY29wZSI6IiIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTphbmltZXMiLCJnZXQ6YW5pbWVzIiwicGF0Y2g6YW5pbWVzIiwicG9zdDphbmltZXMiXX0.hmI-Gi3uUC3z9YKUpbTEA3J88ltxqFh1JJOcY_bg3pMktx6i0qPrHWqd1WgsPdudObQJHGBfAmisw2E_TrwfbMYSoraf1dyYEOpntAiNUlR280HM1vZC1OIqJK-ZNdS5L5cswFuWLh8HwOQRF8z9nEyS2na91nRo9Tk--smJoh9bS4TzSJ7uckZJnVtdsxpAHQlTMLx7XRLCcpGj7BJC4eeFmyWuKY74466rumuvZ882cDVwFGUo1GVgsPjPd5XH8Mknn9rP8IzHVYFoV6GjlswqZLYhOI8Q7VswwKMwPDZYiKpfwoTfQNalxTI74GvN6RO2iyat4xTrPofNRYqsxw",
+			"type": "string"
+		},
+		{
+			"id": "f8f25e1e-5f7c-442a-9ff7-ececfb4f46dc",
+			"key": "host",
+			"value": "localhost:5000",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
