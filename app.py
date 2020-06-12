@@ -12,6 +12,11 @@ def create_app(test_config=None):
     # Set up CORS. Allow '*' for origins.
     CORS(app)
 
+    # A welcome message to test our server
+    @app.route('/')
+    def index():
+        return "<h1>Welcome to our server !!</h1>"
+
     # Use the after_request decorator to set Access-Control-Allow
     @app.after_request
     def after_request(response):
@@ -181,4 +186,4 @@ def create_app(test_config=None):
 app = create_app()
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8080, debug=True)
+    app.run(threaded=True, port=5000)
