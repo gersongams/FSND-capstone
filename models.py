@@ -1,7 +1,8 @@
 from sqlalchemy import Column, String, Integer, Float
 from flask_sqlalchemy import SQLAlchemy
+from config import get_database_path
 
-database_path = "postgres://hlfqgnttcnktiz:da37928c7375f60206a5524585b7708d168e902561d993b10860a9e54a5cc3c4@ec2-34-202-88-122.compute-1.amazonaws.com:5432/d7bgv2q367s97t"
+database_path = get_database_path()
 
 db = SQLAlchemy()
 

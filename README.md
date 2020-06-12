@@ -1,4 +1,8 @@
 # FSDN capstone project
+This is the last project of the `Udacity-Full-Stack-Nanodegree` Course.
+
+## Motivation
+The motivation for this project is to create an API for a game that I'm planning to do in the next weeks. This project brings together everything I have learned during these months.
 
 ## Getting Started
 
@@ -11,6 +15,11 @@ Follow instructions to install the latest version of python for your platform in
 #### Virtual Enviornment
 
 We recommend working within a virtual environment whenever using Python for projects. This keeps your dependencies for each project separate and organaized. Instructions for setting up a virual enviornment for your platform can be found in the [python docs](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/)
+
+```bash
+$ virtualenv env
+$ source env/bin/activate
+```
 
 #### PIP Dependencies
 
@@ -26,11 +35,26 @@ This will install all of the required packages we selected within the `requireme
 
 - [Flask](http://flask.pocoo.org/)  is a lightweight backend microservices framework. Flask is required to handle requests and responses.
 
-- [SQLAlchemy](https://www.sqlalchemy.org/) is the Python SQL toolkit and ORM we'll use handle the lightweight sqlite database. You'll primarily work in app.py and can reference models.py. 
+- [SQLAlchemy](https://www.sqlalchemy.org/) is the Python SQL toolkit and ORM we'll use handle the lightweight sqlite database. You'll primarily work in app.py and can reference models.py.
 
-- [Flask-CORS](https://flask-cors.readthedocs.io/en/latest/#) is the extension we'll use to handle cross origin requests from our frontend server. 
+- [Flask-CORS](https://flask-cors.readthedocs.io/en/latest/#) is the extension we'll use to handle cross origin requests from our frontend server.
+
+- [auth0](auth0.com/) is a service to manage the authentication.
 
 
+## Setting up the database
+This project uses the heroku database instance, to use a local version, install Docker and in the terminal run:
+
+```bash
+# Pull the image of postgres
+docker pull postgres
+
+# Create a directory to store the data
+mkdir -p $HOME/docker/volumes/postgres
+
+# Run the container with the image previously downloaded
+docker run --rm --name pg-docker -e POSTGRES_PASSWORD=docker -d -p 5432:5432 -v $HOME/docker/volumes/postgres:/var/lib/postgresql/data postgres
+```
 
 ## Running the server
 
@@ -46,12 +70,40 @@ flask run
 
 Setting the `FLASK_ENV` variable to `development` will detect file changes and restart the server automatically.
 
-Setting the `FLASK_APP` variable to `app.py` directs flask to use the `app.py` file to find the application. 
+Setting the `FLASK_APP` variable to `app.py` directs flask to use the `app.py` file to find the application.
 
 ## API Reference
 Getting Started
-* Backend Base URL: http://127.0.0.1:5000/
-* Authentication: Authentication or API keys are not used in the project yet.
+* Backend Base URL:
+  * local: `http://127.0.0.1:5000/
+  * heroku: `https://fsnd-capstone-anime.herokuapp.com`
+
+### Existing Roles
+
+They are 2 Roles with distinct permission sets:
+
+1. User role:
+  - GET /animes (get:animes): Can see all animes
+2. Admin role (everything from User role plus)
+  - POST /animes (post:animes): Can create new animes
+  - DELETE /animes (delete:animes): Can remove existing animes from database
+  - PATCH /animes (patch:animes): Can edit existing animes
+
+### Authentication
+
+* Authentication: To retrieve a new token for authorization use these emails and passoword:
+  * admin_user: admin@test.com"
+  * normal_user: user@test.com"
+  * password: 123581321Udacity
+
+```
+https://dev-b4fl3591.us.auth0.com/authorize?
+  audience=anime&
+  response_type=token&
+  client_id=xweQWzNEQjEQWzRTAKAhy5fc5Q5o1eSx&
+  redirect_uri=http://localhost:5000/login-results
+```
+* Previous tokens are in the config file.
 
 ### Error handling
 Errors are returned in the following json format:
@@ -72,307 +124,186 @@ The error codes currently returned are:
 
 ### Endpoints
 
-#### GET `/categories`
-* Fetches a dictionary of categories in which the keys are the ids and the value is the corresponding string of the category.
-* Returns: An object with these keys:
-    * `categories`: Contains a object of:
-        * key: `category_id`
-        * value: name of category
-    * `success`: The success flag
-
-```JSON
-{
-    "categories": {
-        "1": "Science",
-        "2": "Art",
-        "3": "Geography",
-        "4": "History",
-        "5": "Entertainment",
-        "6": "Sports"
-    },
-    "success": true
-}
+* For testing reasons you can use this token (ADMIN PRIVILEGE):
+```bash
+eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlVITHZkRWsyeXJ0TWZsZzdpN1pTWCJ9.eyJpc3MiOiJodHRwczovL2Rldi1iNGZsMzU5MS51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWVlMzBmNjcwNWM1N2MwYmEyZGFmMjA0IiwiYXVkIjoiYW5pbWUiLCJpYXQiOjE1OTE5NDcyNjksImV4cCI6MTU5MjAzMzY2OSwiYXpwIjoieHdlUVd6TkVRakVRV3pSVEFLQWh5NWZjNVE1bzFlU3giLCJzY29wZSI6IiIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTphbmltZXMiLCJnZXQ6YW5pbWVzIiwicGF0Y2g6YW5pbWVzIiwicG9zdDphbmltZXMiXX0.bSiEnqtAutuvt6bVrbftn44g6aOSUKUXfDWYw5godAOl8tXNcN7olf9v1WgpU1lsAyW8nwN36fEr5PttVRz7_k-HOtpMcT90ZRdm0_0LfvBc_Q99cOmEhTDcdu2x-t3s8FawbQn6z6vims_w5_skRoS7E1vGe8SzwpweM_oykoKZ2q7VoWSaUGPOAEnoETTgwF7DTeF_ky3T8H-KbW-I46lB_oXIZQ91L25BZIaJ0WtR7WvwqY9l2vK7gSfbEfAnhWAn5TX9zb175uD7WhF7CcR3ccxhBis5MWtdL3KsP2GhvJ17LfAFM2ZrAiWoCFhRKpJNIUvMaFY7NbNGTPeJgw
 ```
 
-#### GET `/categories`
-* Fetches all the questions paginated and a dictionary of categories in which the keys are the ids and the value is the corresponding string of the category, and the total of questions.
+* Replace the `<TOKEN>` word in the curl expressions for the token above to get results:
+
+#### GET `/animes`
+* Fetches all the animes and retrieve a list of dict in which the keys are the ids and the value is the corresponding string of the animes.
+* Requires permission: `get:animes`
 * Returns: An object with these keys:
-    * `categories`: Contains a object of:
-        * key: `category_id`
-        * value: name of category
-    * `questions`: A list of questions objects, paginated (10) with the structure:
-        * `answer`: string,
-        * `category`: number,
-        * `difficulty`: number,
+    * `animes`: A list of animes objects, paginated (10) with the structure:
+        * `image_url`: string,
+        * `mal_url`: string,
+        * `score`: float,
+        * `rank`: number,
         * `id`: number,
-        * `question`: string
+        * `title`: string
     * `success`: The success flag
-    * `total_questions`: The total of questions
-    
-```JSON
-{
-    "categories": {
-    "1": "Science",
-    "2": "Art",
-    "3": "Geography",
-    "4": "History",
-    "5": "Entertainment",
-    "6": "Sports"
-    },
-    "questions": [
-        {
-          "answer": "Apollo 13",
-          "category": 5,
-          "difficulty": 4,
-          "id": 2,
-          "question": "What movie earned Tom Hanks his third straight Oscar nomination, in 1996?"
-        },
-        {
-          "answer": "Tom Cruise",
-          "category": 5,
-          "difficulty": 4,
-          "id": 4,
-          "question": "What actor did author Anne Rice first denounce, then praise in the role of her beloved Lestat?"
-        },
-        {
-          "answer": "Maya Angelou",
-          "category": 4,
-          "difficulty": 2,
-          "id": 5,
-          "question": "Whose autobiography is entitled 'I Know Why the Caged Bird Sings'?"
-        },
-        {
-          "answer": "Edward Scissorhands",
-          "category": 5,
-          "difficulty": 3,
-          "id": 6,
-          "question": "What was the title of the 1990 fantasy directed by Tim Burton about a young man with multi-bladed appendages?"
-        },
-        {
-          "answer": "Muhammad Ali",
-          "category": 4,
-          "difficulty": 1,
-          "id": 9,
-          "question": "What boxer's original name is Cassius Clay?"
-        },
-        {
-          "answer": "Brazil",
-          "category": 6,
-          "difficulty": 3,
-          "id": 10,
-          "question": "Which is the only team to play in every soccer World Cup tournament?"
-        },
-        {
-          "answer": "Uruguay",
-          "category": 6,
-          "difficulty": 4,
-          "id": 11,
-          "question": "Which country won the first ever soccer World Cup in 1930?"
-        },
-        {
-          "answer": "George Washington Carver",
-          "category": 4,
-          "difficulty": 2,
-          "id": 12,
-          "question": "Who invented Peanut Butter?"
-        },
-        {
-          "answer": "Lake Victoria",
-          "category": 3,
-          "difficulty": 2,
-          "id": 13,
-          "question": "What is the largest lake in Africa?"
-        },
-        {
-          "answer": "The Palace of Versailles",
-          "category": 3,
-          "difficulty": 3,
-          "id": 14,
-          "question": "In which royal palace would you find the Hall of Mirrors?"
-        }
-    ],
-    "success": true,
-    "total_questions": 19
-}
+
+```bash
+curl -X GET 'https://fsnd-capstone-anime.herokuapp.com/animes' \
+--header 'Authorization: Bearer <TOKEN>'
 ```
 
-### DELETE `/questions/:question_id/`
-* Delete question using a `question_id` parameter
-* Request arguments:
-    * `question_id` (number): The question id
-* Returns: An object with theses keys:
-    * `deleted` The ID of the question deleted.
-    * `success` The success flag
-    * `total_questions` The total of questions remaining
-
 ```JSON
 {
-    "deleted": 4,
-    "success": true,
-    "total_questions": 17
-}
-```
-
-### POST `/questions`
-* Create a new question.
-* Request arguments:
-    * `question`: (string)
-    * `answer`: (string)
-    * `difficulty`: (string)
-    * `category`: (string)
-    
-```JSON
-{
-    "question": "What is the capital of France?",
-    "answer": "Paris",
-    "difficulty" : 2,
-    "category": 3
-}
-```    
-    
-* Returns: An object with theses keys:
-    * `created` Contains the ID of the question created.
-    * `success` The success flag
-    * `total_questions` The total of questions remaining 
-
-```JSON
-{
-    "created": 28,
-    "success": true,
-    "total_questions": 19
-}
-```
-
-### POST `/questions` (search)
-* Search for a question that contains the search term inserted. 
-* Request arguments:
-    * `searchTerm`: (string)
-    
-```JSON
-{
-    "searchTerm": "Mirrors"
-}
-```    
-    
-* Returns: An object with theses keys:
-    * `questions` Questions that contains the term searched.
-    * `success` The success flag
-    * `total_questions` The total of questions with the term searched 
-
-```JSON
-{
-    "questions": [
-        {
-          "answer": "The Palace of Versailles",
-          "category": 3,
-          "difficulty": 3,
-          "id": 14,
-          "question": "In which royal palace would you find the Hall of Mirrors?"
-        }
-    ],
-    "success": true,
-    "total_questions": 1
-}
-```
-
-### GET `/categories/:category_id/questions`
-
-* Fetches a list of questions based on category.
-* Request arguments:
-    * `category_id`: (number)
-* Returns: An object with these keys:
-    * `current_category`: The current category
-    * `questions`: A list of questions
-    * `success`: The success flag
-    * `total_questions`: The total of questions
-    
-#### Example with `/categories/4/questions`
-
-```JSON
-{
-  "current_category": {
-    "id": 4,
-    "type": "History"
-  },
-  "questions": [
+  "animes": [
     {
-      "answer": "Maya Angelou",
-      "category": 4,
-      "difficulty": 2,
-      "id": 5,
-      "question": "Whose autobiography is entitled 'I Know Why the Caged Bird Sings'?"
-    },
-    {
-      "answer": "Muhammad Ali",
-      "category": 4,
-      "difficulty": 1,
-      "id": 9,
-      "question": "What boxer's original name is Cassius Clay?"
-    },
-    {
-      "answer": "George Washington Carver",
-      "category": 4,
-      "difficulty": 2,
-      "id": 12,
-      "question": "Who invented Peanut Butter?"
-    },
-    {
-      "answer": "Scarab",
-      "category": 4,
-      "difficulty": 4,
-      "id": 23,
-      "question": "Which dung beetle was worshipped by the ancient Egyptians?"
+      "id": 2,
+      "image_url": "https://myanimelist.net/anime/21/One_Piece",
+      "mal_url": "https://cdn.myanimelist.net/images/anime/6/73245.jpg",
+      "rank": 666,
+      "score": 10.0,
+      "title": "after_patch_1"
     }
   ],
-  "success": true,
-  "total_questions": 4
-}
-```
-
-### POST /quizzes
-
-* Fetches a question to play the quiz.
-* Request arguments:
-    * `quiz_category` (dictionary): The quiz category with the type and the id.
-    * `previous_ids`: (list of strings)
-  
-```JSON
-{
-    "previous_questions": [],
-    "quiz_category": {
-        "type": "Entertainment", 
-        "id": 5
-    }
-}  
-```
-
-* Returns: An object with these keys:
-    * `question`: The question to play
-    * `success`: The success flag
-    
-```JSON
-{
-  "question": {
-    "answer": "Edward Scissorhands", 
-    "category": 5, 
-    "difficulty": 3, 
-    "id": 6, 
-    "question": "What was the title of the 1990 fantasy directed by Tim Burton about a young man with multi-bladed appendages?"
-  }, 
   "success": true
 }
 ```
 
+### GET `/animes/:anime_id/`
+* Get anime using a `anime_id` parameter
+* Requires permission: `get:animes`
+* Request arguments:
+    * `anime_id` (number): The anime id
+* Returns: An object with theses keys:
+    * `anime` A JSON with the anime information
+    * `success` The success flag
+
+```bash
+curl -X POST 'https://fsnd-capstone-anime.herokuapp.com/animes/1' \
+--header 'Authorization: Bearer <TOKEN>'
+```
+
+```JSON
+{
+  "anime": {
+    "id": 2,
+    "image_url": "https://myanimelist.net/anime/21/One_Piece",
+    "mal_url": "https://cdn.myanimelist.net/images/anime/6/73245.jpg",
+    "rank": 666,
+    "score": 10.0,
+    "title": "after_patch_1"
+  },
+  "success": true
+}
+```
+
+### DELETE `/animes/:anime_id/`
+* Delete anime using a `anime_id` parameter
+* Requires permission: `delete:animes`
+* Request arguments:
+    * `anime_id` (number): The anime id
+* Returns: An object with theses keys:
+    * `deleted` The ID of the anime deleted.
+    * `success` The success flag
+
+```bash
+curl -X DELETE 'https://fsnd-capstone-anime.herokuapp.com/animes/2' \
+--header 'Authorization: Bearer <TOKEN>'
+```
+
+```JSON
+{
+  "deleted": 1,
+  "success": true
+}
+```
+
+### POST `/animes`
+* Create a new anime.
+* Requires permission: `post:animes`
+* Request arguments:
+  * `image_url`: string,
+  * `mal_url`: string,
+  * `score`: float,
+  * `rank`: number,
+  * `title`: string
+
+
+* Returns: An object with theses keys:
+    * `anime` Contains the ID of the anime created.
+    * `success` The success flag
+
+```bash
+curl -X POST 'https://fsnd-capstone-anime.herokuapp.com/animes' \
+--header 'Authorization: Bearer <TOKEN>' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "title": "Naruto",
+    "image_url": "https://myanimelist.net/anime/21/One_Piece",
+    "mal_url": "https://cdn.myanimelist.net/images/anime/6/73245.jpg",
+    "score": 10,
+    "rank": 666
+}'
+```
+
+```JSON
+{
+  "anime": {
+    "id": 4,
+    "image_url": "https://myanimelist.net/anime/21/One_Piece",
+    "mal_url": "https://cdn.myanimelist.net/images/anime/6/73245.jpg",
+    "rank": 666,
+    "score": 10.0,
+    "title": "Naruto"
+  },
+  "success": true
+}
+```
+
+
+### PATCH `/animes/:anime_id/`
+* Update an anime using a `anime_id` parameter
+* Requires permission: `patch:animes`
+* Request arguments:
+  * `image_url`: string,
+  * `mal_url`: string,
+  * `score`: float,
+  * `rank`: number,
+  * `title`: string
+
+
+* Returns: An object with theses keys:
+    * `anime` Contains the ID of the anime updated.
+    * `success` The success flag
+
+```bash
+curl -X PATCH 'https://fsnd-capstone-anime.herokuapp.com/animes/4' \
+--header 'Authorization: Bearer <TOKEN>' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "title": "Naruto"
+}'
+```
+
+```JSON
+{
+  "anime": {
+    "id": 4,
+    "image_url": "https://myanimelist.net/anime/21/One_Piece",
+    "mal_url": "https://cdn.myanimelist.net/images/anime/6/73245.jpg",
+    "rank": 666,
+    "score": 10.0,
+    "title": "Naruto"
+  },
+  "success": true
+}
+```
+
+
+
 ## Testing
 To run the tests, run
 ```
-dropdb trivia_test
-createdb trivia_test
-psql trivia_test < trivia.psql
 python test_flaskr.py
 ```
 
 ## Authors
 
 * Gerson Garrido worked on the API and tests.
-* Udacity provided the starter files for the project including the frontend
+* Udacity provided the starter files for the project
