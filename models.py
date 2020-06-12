@@ -1,9 +1,7 @@
 from sqlalchemy import Column, String, Integer, Float
 from flask_sqlalchemy import SQLAlchemy
 
-database_name = "anime"
-database_path = "postgres://{}:{}@{}/{}".format(
-    'postgres', 'docker', 'localhost:5432', database_name)
+database_path = "postgres://hlfqgnttcnktiz:da37928c7375f60206a5524585b7708d168e902561d993b10860a9e54a5cc3c4@ec2-34-202-88-122.compute-1.amazonaws.com:5432/d7bgv2q367s97t"
 
 db = SQLAlchemy()
 
